@@ -22,12 +22,12 @@ public class Main {
             .create();
 
     public static void main(String[] args) {
-        Config c = getOrCreateConig("test", Config::new);
+        Config c = getOrCreateConfig("test", Config::new);
         System.out.println(c);
 
     }
 
-    public static <Config> Config getOrCreateConig(String modid, Supplier<Config> defaultConfig) {
+    public static <Config> Config getOrCreateConfig(String modid, Supplier<Config> defaultConfig) {
         String configFile = "./config/" + modid + ".cfg";
         Config config = defaultConfig.get();
         try {
