@@ -11,3 +11,5 @@ ui/*
 gradle-app.setting
 
 *.bat
+
+/classes/
