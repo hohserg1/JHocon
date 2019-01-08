@@ -19,7 +19,7 @@ public final class Config {
 ```java
 Config person = JHoconConfig.getOrCreateConfig("<modid>",Config::new)
 ```
-It look in file:
+### It look in file:
 ```hocon
 config {
     val1="default"
