@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Supplier;
 
-@Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION)
-public class Main {
+@Mod(modid = JHoconConfig.MODID, name = JHoconConfig.NAME, version = JHoconConfig.VERSION)
+public class JHoconConfig {
     public static final String MODID = "jhocon";
     public static final String NAME = "JHocon";
     public static final String VERSION = "1.0";
