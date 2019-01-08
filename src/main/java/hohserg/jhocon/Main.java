@@ -5,6 +5,7 @@ import com.github.dahaka934.jhocon.JHoconBuilder;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.FMLInjectionData;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,29 +26,26 @@ public class Main {
             .create();
 
     public static void main(String[] args) {
-        System.out.println(new File("./").getAbsolutePath());
         Config c = getOrCreateConfig("test", Config::new);
         System.out.println(c);
 
     }
 
     public static <Config> Config getOrCreateConfig(String modid, Supplier<Config> defaultConfig) {
-        File root = (File) FMLInjectionData.data()[6];
-        String configFile = root.getAbsolutePath() + "/config/" + modid + ".cfg";
+        File root = new File("./");//(File) FMLInjectionData.data()[6];
+        File configFile = new File(root.getAbsolutePath() + "/config/" + modid + ".cfg");
         Config config = defaultConfig.get();
         try {
-            String lines = Files.readAllLines(Paths.get(configFile), StandardCharsets.UTF_8)
-                    .stream()
-                    .reduce("", (a, b) -> a + b + "\n");
+            String lines = FileUtils.readFileToString(configFile, StandardCharsets.UTF_8);
 
             config = jhocon.<Config>fromHocon(lines, "config", config.getClass());
 
         } catch (IOException e) {
             e.printStackTrace();
 
-            String hocon = jhocon.toHocon("config", config.getClass());
+            String hocon = jhocon.toHocon("config", config);
             try {
-                Files.write(Paths.get(configFile), hocon.getBytes(StandardCharsets.UTF_8));
+                FileUtils.writeStringToFile(configFile, hocon, StandardCharsets.UTF_8);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
