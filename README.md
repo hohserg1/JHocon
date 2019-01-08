@@ -8,14 +8,14 @@ JHocon providing simple helper functions to convert between Hocon and Java Objec
 Also, supported all Gson' TypeAdapters, TypeAdapterFactories and annotations.
 
 ## Usage
-For example, we have some simple class.
+For example, we have some config class.
 ```java
 public final class Config {
     public String val1 = "default";
     public int val2 = 0;
 }
 ```
-### Converting non-generic object
+### Using in your mod
 ```java
 Config person = JHoconConfig.getOrCreateConfig("<modid>",Config::new)
 ```
