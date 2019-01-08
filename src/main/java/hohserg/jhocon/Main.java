@@ -2,7 +2,6 @@ package hohserg.jhocon;
 
 import com.github.dahaka934.jhocon.JHocon;
 import com.github.dahaka934.jhocon.JHoconBuilder;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.FMLInjectionData;
 import org.apache.commons.io.FileUtils;
@@ -10,8 +9,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 @Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION)
@@ -25,14 +22,8 @@ public class Main {
             .throwErrorOnValidationFail(true)
             .create();
 
-    public static void main(String[] args) {
-        Config c = getOrCreateConfig("test", Config::new);
-        System.out.println(c);
-
-    }
-
     public static <Config> Config getOrCreateConfig(String modid, Supplier<Config> defaultConfig) {
-        File root = new File("./");//(File) FMLInjectionData.data()[6];
+        File root = (File) FMLInjectionData.data()[6];
         File configFile = new File(root.getAbsolutePath() + "/config/" + modid + ".cfg");
         Config config = defaultConfig.get();
         try {
