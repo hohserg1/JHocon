@@ -2,8 +2,11 @@ package hohserg.jhocon;
 
 import com.github.dahaka934.jhocon.JHocon;
 import com.github.dahaka934.jhocon.JHoconBuilder;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.relauncher.FMLInjectionData;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -22,13 +25,15 @@ public class Main {
             .create();
 
     public static void main(String[] args) {
+        System.out.println(new File("./").getAbsolutePath());
         Config c = getOrCreateConfig("test", Config::new);
         System.out.println(c);
 
     }
 
     public static <Config> Config getOrCreateConfig(String modid, Supplier<Config> defaultConfig) {
-        String configFile = "./config/" + modid + ".cfg";
+        File root = (File) FMLInjectionData.data()[6];
+        String configFile = root.getAbsolutePath() + "/config/" + modid + ".cfg";
         Config config = defaultConfig.get();
         try {
             String lines = Files.readAllLines(Paths.get(configFile), StandardCharsets.UTF_8)
