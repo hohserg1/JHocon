@@ -22,9 +22,9 @@ public class JHoconConfig {
             .throwErrorOnValidationFail(true)
             .create();
 
-    public static <Config> Config getOrCreateConfig(String modid, Supplier<Config> defaultConfig) {
+    public static <Config> Config getOrCreateConfig(String modid, String extension, Supplier<Config> defaultConfig) {
         File root = (File) FMLInjectionData.data()[6];
-        File configFile = new File(root.getAbsolutePath() + "/config/" + modid + ".cfg");
+        File configFile = new File(root.getAbsolutePath() + "/config/" + modid + "." + extension);
         Config config = defaultConfig.get();
         try {
             String lines = FileUtils.readFileToString(configFile, StandardCharsets.UTF_8);
@@ -42,5 +42,10 @@ public class JHoconConfig {
             }
         }
         return config;
+
+    }
+
+    public static <Config> Config getOrCreateConfig(String modid, Supplier<Config> defaultConfig) {
+        return getOrCreateConfig(modid, "cfg", defaultConfig);
     }
 }
